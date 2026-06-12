@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>프로젝트 | 자원잇다</title>
+  <meta name="description" content="자원잇다 회생 프로젝트와 파트너 모집 페이지입니다.">
+  <link rel="icon" type="image/png" href="/assets/favicon.png?v=51.12.0">
+  <link rel="stylesheet" href="/css/styles.css?v=51.12.0">
+</head>
+<body class="projects18-page">
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand brand-image" href="/index.html" aria-label="자원잇다 홈"><img src="/assets/jawonitda-logo.png?v=51.12.0" alt="자원잇다"></a>
+    <button class="mobile-toggle" id="mobileToggle">메뉴</button>
+    <nav class="menu" id="menu"></nav>
+    <div class="nav-spacer"></div>
+    <div class="account-area" id="accountArea"></div>
+  </div>
+</header>
+
+<main>
+  <section class="proj18-hero">
+    <div class="container proj18-grid">
+      <div>
+        <span class="eyebrow">프로젝트</span>
+        <h1>자원잇다 회생 프로젝트에<br>참여할 업체를 모집합니다</h1>
+        <p>중고형 판매, 부품 회수, 자동차 부품 소매 판매, 도시광산 회수까지 프로젝트 단위로 파트너를 모으고 수익분배 구조를 설계합니다.</p>
+        <div class="row-actions"><a class="btn primary" href="#applyProject">참여 신청</a><a class="btn ghost" href="/resource-recovery.html">회생모델 보기</a></div>
+      </div>
+      <div class="proj18-panel">
+        <b>운영 원칙</b>
+        <ul>
+          <li>자원잇다는 무허가 해체·운반을 직접 수행하지 않습니다.</li>
+          <li>허가·자격 보유 파트너가 검수, 운송, 해체, 판매를 담당합니다.</li>
+          <li>판매금에서 매입비·물류비·검수비·플랫폼 수수료를 제외하고 분배합니다.</li>
+          <li>소유권, 하자 고지, 개인정보 삭제, 위험물 처리를 우선 확인합니다.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">모집 중</span>
+        <h2>현재 열려 있는 프로젝트</h2>
+        <p>자원잇다 내부 프로젝트 API와 연결되어 표시됩니다.</p>
+      </div>
+      <div class="proj18-list" data-project-list>
+        <article class="proj18-card">프로젝트를 불러오는 중입니다.</article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section proj18-car-section">
+    <div class="container proj18-car">
+      <div>
+        <span class="eyebrow">중고차·부품 수익분배</span>
+        <h2>저가 차량 매입 후보 → 파트너 검수 → 부품 소매 판매</h2>
+        <p>예를 들어 자원잇다가 저가 중고차 후보를 확보하면, 참여 업체가 엔진·미션·전장품·휠·촉매 등 가치 품목을 검수합니다. 이후 부품 소매 판매 수익에서 매입비, 보관·운송비, 검수·작업비, 플랫폼 수수료를 제외하고 프로젝트 약정에 따라 분배합니다.</p>
+        <p class="fine">주의: 실제 차량 해체·폐차·촉매 거래는 자동차관리법 등 관련 법령과 허가를 갖춘 업체만 수행해야 합니다. 이 페이지는 발표·중간배포용 파트너 모집 흐름입니다.</p>
+      </div>
+      <div class="proj18-flow">
+        <div><b>1</b><span>매입 후보 등록</span></div>
+        <div><b>2</b><span>파트너 사전견적</span></div>
+        <div><b>3</b><span>합법 검수·부품화</span></div>
+        <div><b>4</b><span>소매 판매</span></div>
+        <div><b>5</b><span>수익분배 정산</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="applyProject">
+    <div class="container">
+      <div class="form-card proj18-apply">
+        <span class="eyebrow">파트너 참여 신청</span>
+        <h2>업체 정보를 남기면 프로젝트 후보로 접수됩니다</h2>
+        <form class="project-apply-form">
+          <div class="form-grid two">
+            <label>참여 프로젝트
+              <select name="project_id">
+                <option value="used-car-parts-share">중고차 매입·부품 소매 수익분배</option>
+                <option value="used-market-lite">중고형 판매글 생성·거래지원</option>
+              </select>
+            </label>
+            <label>업체명<input name="company" required placeholder="예: 광주OO자원 / OO정비"></label>
+            <label>담당자<input name="contact" required placeholder="담당자명"></label>
+            <label>연락처<input name="phone" placeholder="010-0000-0000"></label>
+            <label>지역<input name="region" placeholder="예: 광주 서구, 전국 가능"></label>
+            <label>참여 역할<input name="role" placeholder="예: 부품 판매, 검수, 해체재활용, 물류"></label>
+            <label>허가·자격 상태<input name="license_status" placeholder="예: 자동차해체재활용업 등록, 정비업 등록, 검토 필요"></label>
+            <label>메모<input name="memo" placeholder="보유 장비, 취급 품목, 정산 희망 조건"></label>
+          </div>
+          <button class="btn primary" type="submit">프로젝트 참여 신청</button>
+        </form>
+        <div class="project-apply-result" data-project-apply-result></div>
+      </div>
+    </div>
+  </section>
+</main>
+<div class="quick-help" id="quickHelp"></div>
+<script src="/js/app.js?v=51.12.0"></script>
+</body>
+</html>

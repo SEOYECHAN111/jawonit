@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
+  <title>운영용 DB·API 센터 | 자원잇다</title>
+  <link rel="icon" type="image/png" href="/assets/favicon.png?v=51.12.0">
+  <link rel="stylesheet" href="/css/styles.css?v=51.12.0">
+</head>
+<body class="no-auto-hero-v504 electronics-value-page-v507">
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand brand-image" href="/index.html" aria-label="자원잇다 홈"><img src="/assets/jawonitda-logo.png?v=51.12.0" alt="자원잇다"></a>
+    <button class="mobile-toggle" id="mobileToggle">메뉴</button>
+    <nav class="menu" id="menu"></nav>
+    <div class="nav-spacer"></div>
+    <div class="account-area" id="accountArea"></div>
+  </div>
+</header>
+<main class="section">
+  <div class="container v507-wrap">
+    <section class="v507-hero">
+      <div>
+        <span class="eyebrow">Production Backend</span>
+        <h1>운영용 DB·API 센터</h1>
+        <p>자원잇다 최종 통합본에는 기존 홈페이지 기능과 별도로 PostgreSQL/SQLite 기반 운영용 모델DB, 자원등록 DB, 가치평가 엔진 API가 함께 들어 있습니다.</p>
+      </div>
+      <div class="v507-hero-card">
+        <b>핵심 구조</b>
+        <p>FastAPI + SQLAlchemy + PostgreSQL/SQLite + Object Storage + 관리자 모델DB + 가치평가 엔진</p>
+      </div>
+    </section>
+
+    <section class="v507-layout">
+      <div class="v507-form">
+        <span class="eyebrow">API 상태</span>
+        <h2>운영 백엔드 연결 확인</h2>
+        <div class="row-actions">
+          <button class="btn primary" id="checkProdApi">운영 API 상태 확인</button>
+          <a class="btn ghost" href="/docs" target="_blank">FastAPI 문서 열기</a>
+        </div>
+        <pre id="prodApiStatus" class="code-box">아직 확인 전입니다.</pre>
+      </div>
+      <div class="v507-result">
+        <span class="eyebrow">테스트 계산</span>
+        <h2>갤럭시 S21 화면파손 예시</h2>
+        <p>운영용 DB에 등록된 모델·규칙으로 계산합니다.</p>
+        <button class="btn primary" id="testValuation">가치평가 API 테스트</button>
+        <pre id="valuationStatus" class="code-box">테스트 전입니다.</pre>
+      </div>
+    </section>
+
+    <section class="v507-table-section">
+      <div class="section-head">
+        <h2>들어간 운영용 API</h2>
+        <p>실제 창업용으로 모델DB와 자원등록 흐름을 DB에 저장하는 구조입니다.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr><th>API</th><th>역할</th></tr></thead>
+          <tbody>
+            <tr><td><code>GET /api/v1/electronics/catalog</code></td><td>제조사·카테고리·모델·규칙 조회</td></tr>
+            <tr><td><code>POST /api/v1/electronics/models</code></td><td>관리자 모델 등록</td></tr>
+            <tr><td><code>POST /api/v1/electronics/variants</code></td><td>용량/RAM/CPU 등 세부 사양 등록</td></tr>
+            <tr><td><code>POST /api/v1/electronics/valuate</code></td><td>운영용 가치평가 엔진</td></tr>
+            <tr><td><code>GET /api/v1/electronics/unmatched</code></td><td>미등록 모델 후보 관리</td></tr>
+            <tr><td><code>POST /api/v1/resources/submit</code></td><td>사진 업로드 + 자원등록 + 가치평가 저장</td></tr>
+            <tr><td><code>GET /api/v1/admin/dashboard</code></td><td>운영 DB 개수·미등록 모델 확인</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</main>
+<footer class="footer"><div class="container footer-grid"><div><b>자원잇다</b><p>운영용 DB·API 센터</p></div></div></footer>
+<script src="/js/app.js?v=51.12.0"></script>
+<script>
+function pretty(x){return JSON.stringify(x,null,2)}
+document.getElementById('checkProdApi')?.addEventListener('click', async()=>{
+  const out=document.getElementById('prodApiStatus');
+  try{
+    const health=await fetch('/api/v1/production-health').then(r=>r.json());
+    const dash=await fetch('/api/v1/admin/dashboard').then(r=>r.json());
+    out.textContent=pretty({health,dashboard:dash});
+  }catch(e){out.textContent='오류: '+e.message+'\nrequirements 설치 후 다시 실행하세요.'}
+});
+document.getElementById('testValuation')?.addEventListener('click', async()=>{
+  const out=document.getElementById('valuationStatus');
+  try{
+    const r=await fetch('/api/v1/electronics/valuate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({item_text:'폐휴대폰',manufacturer_text:'삼성',model_text:'갤럭시 S21 256GB',condition_code:'screen_broken',age_code:'3_5',security_code:'unlocked',quantity:1,owner_confirmed:true,data_confirmed:true,not_stolen_confirmed:true})});
+    out.textContent=pretty(await r.json());
+  }catch(e){out.textContent='오류: '+e.message;}
+});
+</script>
+</body>
+</html>

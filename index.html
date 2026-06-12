@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>배출 안내표 | 자원잇다</title>
+  <meta name="description" content="폐자원 품목별 배출방법, 즉시수거 기준, 묶음수거, 관리자 검토 조건을 확인합니다.">
+  <link rel="icon" type="image/png" href="/assets/favicon.png?v=51.12.0">
+  <link rel="stylesheet" href="/css/styles.css?v=51.12.0">
+</head>
+<body class="disposal15-page">
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand brand-image" href="/index.html" aria-label="자원잇다 홈"><img src="/assets/jawonitda-logo.png?v=51.12.0" alt="자원잇다"></a>
+    <button class="mobile-toggle" id="mobileToggle">메뉴</button>
+    <nav class="menu" id="menu"></nav>
+    <div class="nav-spacer"></div>
+    <div class="account-area" id="accountArea"></div>
+  </div>
+</header>
+
+<main>
+  <section class="dg15-hero">
+    <div class="container dg15-grid">
+      <div class="dg15-copy">
+        <span class="rv13-pill">배출 안내표</span>
+        <h1>품목을 고르면<br>배출방법과 회생경로가 나옵니다</h1>
+        <p>단순히 “버리는 법”만 보여주지 않고, 즉시수거·묶음수거·캠페인·관리자 검토·판매경로까지 연결합니다.</p>
+        <div class="dg15-tags"><span>배출방법</span><span>사진기준</span><span>수거기준</span><span>주의사항</span><span>관리자검토</span></div>
+      </div>
+
+      <section class="dg15-search-card">
+        <h2>품목 검색</h2>
+        <p>예: 노트북, 휴대폰, PET병, 냉장고, 에어컨, 자동차 배터리</p>
+        <form id="disposalSearchForm" class="dg15-form">
+          <label>품목명 또는 키워드
+            <input name="q" placeholder="품목명을 입력하세요" value="노트북">
+          </label>
+          <label>분류
+            <select name="category">
+              <option value="">전체</option>
+              <option>플라스틱·PET</option>
+              <option>종이·박스</option>
+              <option>금속·고철</option>
+              <option>가전·전산장비</option>
+              <option>가구·목재</option>
+              <option>유리·도자기</option>
+              <option>의류·섬유</option>
+              <option>위험·특수</option>
+              <option>기타 생활·사업장</option>
+            </select>
+          </label>
+          <div class="dg15-mini-grid">
+            <label>무게 kg<input name="weight" type="number" min="0" step="0.1" value="0"></label>
+            <label>수량<input name="count" type="number" min="0" value="1"></label>
+            <label>예상가치 원<input name="value" type="number" min="0" value="0"></label>
+          </div>
+          <label class="dg15-check"><input type="checkbox" name="bulky"> 대형/반출 난이도 있음</label>
+          <button class="btn primary block">배출 안내표 보기</button>
+        </form>
+
+        <form id="disposalPhotoForm" class="dg15-photo-form">
+          <label class="dg15-photo">
+            <input type="file" name="photo" accept="image/*" capture="environment">
+            <b>사진으로 안내표 찾기</b>
+            <span>파일명/사진 특징 기반으로 품목 후보를 찾습니다.</span>
+          </label>
+        </form>
+      </section>
+    </div>
+  </section>
+
+  <section class="section dg15-result-section">
+    <div class="container">
+      <div id="disposalGuideResult" class="dg15-result">
+        <span class="eyebrow">안내 결과</span>
+        <h2>품목을 검색하면 배출 안내표가 표시됩니다</h2>
+        <p>준비절차, 배출방법, 하지 말아야 할 것, 즉시수거 기준, 판매·회생 경로가 카드형으로 정리됩니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dg15-catalog-section">
+    <div class="container">
+      <div class="section-head">
+        <span class="rv13-pill">품목 목록</span>
+        <h2>주요 배출 품목</h2>
+        <p>검색 결과는 카드와 표로 함께 보여집니다. 모바일에서는 카드가 우선입니다.</p>
+      </div>
+      <div id="disposalCards" class="dg15-card-grid"></div>
+      <div class="dg15-table-wrap">
+        <table class="dg15-table">
+          <thead><tr><th>품목</th><th>분류</th><th>배출경로</th><th>즉시수거</th><th>주의사항</th></tr></thead>
+          <tbody id="disposalTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container dg15-feedback">
+      <div>
+        <span class="rv13-pill">수정요청</span>
+        <h2>현장 기준과 다르면 수정요청하세요</h2>
+        <p>지역 조례, 아파트 관리규정, 사업장/기관 기준이 다를 수 있어 관리자 검토 후 반영합니다.</p>
+      </div>
+      <form id="disposalFeedbackForm" class="dg15-form">
+        <label>품목명<input name="item_name" placeholder="예: 폐노트북"></label>
+        <label>수정 내용<textarea name="body" rows="4" placeholder="실제 배출방법, 지역 차이, 누락 기준을 적어주세요."></textarea></label>
+        <button type="submit" class="btn primary">수정요청 접수</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<div class="quick-help" id="quickHelp"></div>
+<script src="/js/app.js?v=51.12.0"></script>
+</body>
+</html>

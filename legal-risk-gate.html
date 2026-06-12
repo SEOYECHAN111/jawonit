@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
+  <title>문서발급센터 | 자원잇다</title>
+  <link rel="icon" type="image/png" href="/assets/favicon.png?v=51.12.0">
+  <link rel="stylesheet" href="/css/styles.css?v=51.12.0">
+</head>
+<body class="v50-doc-page">
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand brand-image" href="/index.html"><img src="/assets/jawonitda-logo.png?v=51.12.0" alt="자원잇다"></a>
+    <button class="mobile-toggle" id="mobileToggle">메뉴</button>
+    <nav class="menu" id="menu"></nav>
+    <div class="nav-spacer"></div>
+    <div class="account-area" id="accountArea"></div>
+  </div>
+</header>
+<main class="section">
+  <div class="container">
+    <section class="policy-hero">
+      <span class="eyebrow">Template Document Engine</span>
+      <h1>문서발급센터</h1>
+      <p>관리자에서 등록한 서류 양식을 바탕으로 견적서, 인보이스, 정산서, 확인서, 파기확인서, 자동차 출처확인서를 발급합니다. HTML 양식은 관리자 업로드 후 실제 발급 화면에 반영됩니다.</p>
+      <div class="row-actions" style="margin-top:18px">
+        <a class="btn primary" href="/dashboards/admin.html#template-admin">관리자 양식 수정</a>
+        <a class="btn ghost" href="/dashboards/documents.html">발급 문서함</a>
+      </div>
+    </section>
+
+    <section class="grid cols-2">
+      <article class="card">
+        <h2>1. 문서 템플릿 선택</h2>
+        <select id="templateSelect"></select>
+        <div id="templateInfo" class="fine" style="margin-top:10px">템플릿 정보를 불러오는 중입니다.</div>
+      </article>
+      <article class="card">
+        <h2>2. 발급 결과</h2>
+        <div id="resultBox" class="result">아직 발급된 문서가 없습니다.</div>
+      </article>
+    </section>
+
+    <section class="grid cols-2" style="margin-top:18px">
+      <article class="card">
+        <h2>3. 수신자</h2>
+        <div class="form grid cols-2">
+          <label>수신자명<input id="recipientName" value="광주그린자원"></label>
+          <label>사업자번호<input id="recipientBiz" value="123-45-67890"></label>
+          <label>주소<input id="recipientAddress" value="광주광역시 북구"></label>
+          <label>담당자<input id="recipientManager" value="입찰담당"></label>
+        </div>
+      </article>
+      <article class="card">
+        <h2>4. 프로젝트</h2>
+        <div class="form grid cols-2">
+          <label>프로젝트명<input id="projectTitle" value="봉선동 1차 회생입찰 문서"></label>
+          <label>지역<input id="projectRegion" value="광주 남구 봉선동"></label>
+          <label>분류<input id="projectCategory" value="동별 묶음입찰"></label>
+          <label>케이스ID<input id="projectCase" value="case-demo-001"></label>
+        </div>
+      </article>
+    </section>
+
+    <section class="card" style="margin-top:18px">
+      <h2>5. 품목/금액</h2>
+      <div class="form grid cols-5">
+        <label>품목명<input id="itemName" value="폐전자기기 회생 묶음"></label>
+        <label>규격<input id="itemSpec" value="PC/모니터 혼합"></label>
+        <label>수량<input id="itemQty" type="number" value="1"></label>
+        <label>단위<input id="itemUnit" value="식"></label>
+        <label>단가<input id="itemPrice" type="number" value="30000"></label>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:18px">
+      <h2>6. 추가 필드</h2>
+      <div class="form grid cols-3">
+        <label>회생경로<input id="fieldRoute" value="동별 묶음입찰"></label>
+        <label>데이터삭제 필요여부<input id="fieldSecurity" value="필요 시 별도 확인"></label>
+        <label>관리자 메모<input id="fieldMemo" value="관리자 양식 수정 가능"></label>
+      </div>
+      <label class="form" style="margin-top:12px">문서 메모<textarea id="docMemo">본 문서는 자원회생 플랫폼 운영을 위한 양식 기반 발급 문서입니다.</textarea></label>
+      <div class="row-actions" style="margin-top:14px">
+        <button class="btn ghost" id="previewDoc">미리보기</button>
+        <button class="btn primary" id="issueDoc">문서 발급</button>
+        <button class="btn ghost" id="sample100">샘플 100장 발급</button>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:18px">
+      <h2>미리보기</h2>
+      <iframe id="previewFrame" title="문서 미리보기" style="width:100%;min-height:520px;border:1px solid #dbe8e3;border-radius:18px;background:#fff"></iframe>
+    </section>
+  </div>
+</main>
+<div class="quick-help" id="quickHelp"></div>
+<footer class="footer"><div class="container footer-grid"><div><b>자원잇다</b><p>문서발급센터</p></div><div><b>관리</b><p><a href="/dashboards/admin.html#template-admin">서류양식 관리</a></p><p><a href="/dashboards/documents.html">문서함</a></p></div><div><b>고객센터</b><p>1544-0000</p></div></div></footer>
+<script src="/js/app.js?v=51.12.0"></script>
+<script>
+let templates=[];
+async function loadTemplates(){
+  const res=await fetch('/api/v50/document-templates');
+  const data=await res.json();
+  templates=data.templates||[];
+  const sel=document.getElementById('templateSelect');
+  sel.innerHTML=templates.map(t=>`<option value="${t.id}">${t.title} ${t.has_uploaded_file?'· 업로드양식':''}</option>`).join('');
+  renderTemplateInfo();
+}
+function renderTemplateInfo(){
+  const t=templates.find(x=>x.id===document.getElementById('templateSelect').value);
+  document.getElementById('templateInfo').innerHTML=t?`<b>${t.title}</b><br>${t.description||''}<br>필수값: ${(t.required||[]).join(', ')}<br>양식파일: ${t.has_uploaded_file?(t.custom_template_original_name||'업로드됨'):'기본 엔진'}`:'템플릿 없음';
+}
+function payload(){
+  return {
+    template_id:document.getElementById('templateSelect').value,
+    recipient:{name:recipientName.value,biz_no:recipientBiz.value,address:recipientAddress.value,manager:recipientManager.value},
+    project:{title:projectTitle.value,region:projectRegion.value,category:projectCategory.value,case_id:projectCase.value},
+    fields:{회생경로:fieldRoute.value,데이터삭제필요여부:fieldSecurity.value,관리자메모:fieldMemo.value},
+    line_items:[{name:itemName.value,spec:itemSpec.value,qty:Number(itemQty.value||1),unit:itemUnit.value,unit_price:Number(itemPrice.value||0)}],
+    memo:docMemo.value,
+    issue_count:1,
+    created_by:'admin'
+  }
+}
+async function preview(){
+  const res=await fetch('/api/v49/documents/preview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload())});
+  const data=await res.json();
+  if(!res.ok){resultBox.textContent=JSON.stringify(data,null,2);return;}
+  resultBox.textContent=JSON.stringify({validation:data.validation,totals:data.totals},null,2);
+  previewFrame.srcdoc=data.html;
+}
+async function issue(){
+  const res=await fetch('/api/v49/documents/issue',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload())});
+  const data=await res.json();
+  resultBox.textContent=JSON.stringify(data,null,2);
+  if(data.html_url) previewFrame.src=data.html_url;
+}
+async function sample(){
+  const res=await fetch('/api/v49/documents/sample-100',{method:'POST'});
+  const data=await res.json();
+  resultBox.textContent=JSON.stringify(data,null,2);
+}
+templateSelect?.addEventListener('change',renderTemplateInfo);
+previewDoc?.addEventListener('click',preview);
+issueDoc?.addEventListener('click',issue);
+sample100?.addEventListener('click',sample);
+loadTemplates();
+</script>
+</body>
+</html>

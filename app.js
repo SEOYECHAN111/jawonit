@@ -1,0 +1,1 @@
+<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=/document-center.html"><title>문서센터</title><a href="/document-center.html">문서센터로 이동</a>
